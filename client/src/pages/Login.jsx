@@ -1,28 +1,35 @@
-import React from 'react'
-import Button from '../components/Button'
+import React from "react";
+import Button from "../components/Button";
 const Login = () => {
   return (
-    <div className='w-screen h-screen flex justify-center py-12' >
-      <div className='border border-black w-1/2  flex flex-col justify-center rounded-lg px-4 gap-12'>
-        <label htmlFor='name'className='border-2'>
-           <input type="text" name="name" id="name" placeholder='name' className='w-full'/>
-          </label>  
-        <label htmlFor='email' className='border-2'>
-           <input type="text" name="name" id="email" className='w-full'/>
+    <div className="w-screen h-screen flex  border items-center justify-center py-12 sm:py-8 overflow-hidden">
+      <div className="border border-black w-3/4 sm:w-2/3 md:w-2/5 lg:w-1/3 flex flex-col rounded-lg px-4 py-6 gap-2">
+        <h3 className="text-center text-3xl font-bold">LOGIN</h3>
+        <label htmlFor="email" className="flex flex-col gap-1 font-medium">
+          Email
+          <input
+            type="text"
+            name="name"
+            className="border border-black rounded-sm w-full px-1 outline-none h-8"
+            required
+          />
         </label>
-        <label htmlFor='dateOfBirth' className='border-2'>
-           <input type="text" name="name" id="dateOfBirth" className='w-full'/>
+        <label htmlFor="password" className="flex flex-col gap-1 font-medium">
+          Password
+          <input
+            type="password"
+            name="password"
+            id="password"
+            className="border border-black rounded-sm w-full px-1 outline-none h-8"
+            required
+          />
         </label>
-        <label htmlFor='placeOfResidence' className='border-2'>
-           <input type="text" name="name" id="placeOfResidence" className='w-full'/>
-        </label>
-        <label htmlFor='phoneNumber' className='border-2'>
-           <input type="text" name="name" id="phoneNumber" className='w-full'/>
-        </label>
-        <Button label={"Signup"} outline={"black"}/>
+        <div className="flex flex-row justify-center mt-2">
+          <Button label={"LOGIN"} outline="black" />
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

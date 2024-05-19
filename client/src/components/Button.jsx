@@ -13,7 +13,7 @@ const Button = ({ onclick, label, outline = "white" }) => {
       ) : (
         <div
           onClick={onclick}
-          className="p-2 text-center bg-none w-32 text-black rounded-md border-2 border-black cursor-pointer hover:bg-black hover:text-white"
+          className="p-2 text-center font-bold w-32 text-white bg-black rounded-md  cursor-pointer "
         >
           {label}
         </div>
