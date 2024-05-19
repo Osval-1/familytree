@@ -6,7 +6,14 @@ const jsonwebtoken = require("jsonwebtoken");
 const signup = async (req, res) => {
   try {
     console.log(req.body);
-    const {name,email,dateOfBirth,placeOfResidence,phoneNumber,password} = req.body
+    const {
+      name,
+      email,
+      dateOfBirth,
+      placeOfResidence,
+      phoneNumber,
+      password,
+    } = req.body;
     const existingMember = await Member.findOne({ email });
     if (existingMember) {
       return res.status(400).send("Family Member already exists");
@@ -17,11 +24,11 @@ const signup = async (req, res) => {
       email: email,
       password: hashedPassword,
       phoneNumber: phoneNumber,
-      dateOfBirth:dateOfBirth,
-      placeOfResidence:placeOfResidence,
+      dateOfBirth: dateOfBirth,
+      placeOfResidence: placeOfResidence,
     });
     await newMember.save();
-    res.status(201).send(`student registered successfully,${newMember}`);
+    res.status(201).send(`Family Member registered successfully,${newMember}`);
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
@@ -30,12 +37,13 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const isMember = await Member.findOne({ matricule: req.body.matricule });
+    const { email, password } = req.body;
+    const isMember = await Member.findOne({ email });
     if (!isMember) {
       return res.status(400).send("Member doesn't exist");
     }
     const comparePasswords = await bcrypt.compare(
-      req.body.password,
+      password,
       isMember.password
     );
     if (!comparePasswords) {
