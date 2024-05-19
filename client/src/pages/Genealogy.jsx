@@ -1,8 +1,11 @@
 import React from 'react'
+import { PageFitMode, Enabled, GroupByType } from 'basicprimitives';
 
 const Genealogy = () => {
+  
   return (
-    <div>Genealogy</div>
+    <div style={{height: '100%',width:"100%"}}>
+    </div>      
   )
 }
 
