@@ -7,6 +7,7 @@ export const getApi = async (url, token) => {
     },
   });
   const apiData = await response.json();
+  console.log(apiData)
 
   return apiData;
 };
@@ -21,6 +22,7 @@ export const postApi = async (url, token, data) => {
     body: JSON.stringify(data),
   });
   const apiData = await response.json();
+  console.log(apiData)
 
   return apiData;
 };

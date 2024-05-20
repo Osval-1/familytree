@@ -9,8 +9,7 @@ export const signupApi = async (url, data) => {
     body: JSON.stringify(data),
   });
   const userData = await response.json();
-
-  return userData;
+  return {response,userData};
 };
 export const loginApi = async (url, data) => {
   const response = await fetch(url, {
@@ -21,7 +20,7 @@ export const loginApi = async (url, data) => {
     body: JSON.stringify(data),
   });
   const userData = await response.json();
-  
+  console.log(userData)  
   setToken(userData.token);
   return userData;
 };

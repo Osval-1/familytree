@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
+
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
   return (
     <div className="w-screen h-screen flex  border items-center justify-center py-12 sm:py-8 overflow-hidden">
       <div className="border border-black w-3/4 sm:w-2/3 md:w-2/5 lg:w-1/3 flex flex-col rounded-lg px-4 py-6 gap-2">
@@ -11,6 +21,8 @@ const Login = () => {
             type="text"
             name="name"
             className="border border-black rounded-sm w-full px-1 outline-none h-8"
+            value={email}
+            onChange={(value) => handleNamesChange(value)}
             required
           />
         </label>
@@ -21,6 +33,8 @@ const Login = () => {
             name="password"
             id="password"
             className="border border-black rounded-sm w-full px-1 outline-none h-8"
+            value={email}
+            onChange={(value) => handleNamesChange(value)}
             required
           />
         </label>
