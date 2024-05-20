@@ -15,10 +15,9 @@ const getFamilyTree = async (req, res) => {
 };
 const AddFamilyMember = async (req, res) => {
   try {
-    const { name, email, phone, dateOfBirth, placeOfResidence } =
-      req.body;
-    if (!email | !name|!placeOfResidence|!dateOfBirth|!phone) {
-      return res.status(400).json({message:"please fill in all fields"})
+    const { name, email, phone, dateOfBirth, placeOfResidence } = req.body;
+    if (!email | !name | !placeOfResidence | !dateOfBirth | !phone) {
+      return res.status(400).json({ message: "please fill in all fields" });
     }
     const newMember = new Member({
       name: name,
@@ -34,8 +33,40 @@ const AddFamilyMember = async (req, res) => {
     res.status(400).send(error);
   }
 };
+const AddParents = async (req, res) => {
+  try {
+    console.log(req.body)
+    const { childId, father, mother } = req.body;
+    if (!childId | !father | !mother) {
+      return res.status(400).json({ message: "please fill in all fields" });
+    }
+    const findFather = await Member.findOne({ name: father });
+    if (!father) {
+      console.log(findFather)
+      return res.status(400).json({ message: "input a valid father" });
+    }
+    const findMother = await Member.findOne({ name: mother });
+    if (!mother) {
+      console.log(findMother)
+      return res.status(400).json({ message: "input a valid mother" });
+    }
+    const findChild = await Member.findById(childId);
+
+    console.log(findChild)
+    
+    findChild.father = findFather._id;
+    findChild.mother = findMother._id;
+    await findChild.save();
+
+    res.status(200).json({ message: "Added parents" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+};
 
 module.exports = {
   getFamilyTree,
   AddFamilyMember,
+  AddParents,
 };

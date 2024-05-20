@@ -7,6 +7,7 @@ import {
   AddMember,
   Genealogy,
   AddParents,
+  MembersTable
 } from "./pages";
 import { AuthContext } from "./context/AuthContext";
 
@@ -28,9 +29,14 @@ function App() {
           </>
         ) : (
           <>
+          <Route
+            path="/"
+            element={<Navigate to="/Genealogy" replace={true} />}
+          />
             <Route path="/Genealogy" element={<Genealogy />} />
             <Route path="/AddMember" element={<AddMember />} />
-            <Route path="/AddParents" element={<AddParents />} />
+            <Route path="/MembersTable" element={<MembersTable />} />
+            <Route path="/AddParents/:id" element={<AddParents />} />
             <Route path="/Homepage" element={<Homepage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />

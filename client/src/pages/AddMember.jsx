@@ -11,7 +11,7 @@ const AddMember = () => {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [placeOfResidence, setPlaceOfResidence] = useState("");
   const [phone, setPhone] = useState("")
-  const [message, setMessage] = useState("Does");
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate()
@@ -57,11 +57,12 @@ const AddMember = () => {
       setMessage("error occured");
       return;
     }
+     navigate("/MembersTable")
     console.log(response, userData);
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col border items-center justify-center py-12 sm:py-8 overflow-hidden">
+    <div className="w-screen h-screen absolute flex flex-col border items-center justify-center py-12 sm:py-8 overflow-hidden">
       {error && <ErrorMessage message={message} />}
       <div className="border border-black w-3/4 sm:w-2/3 md:w-2/5 lg:w-1/3 flex flex-col rounded-lg px-4 py-6 gap-2">
         <h3 className="text-center text-3xl font-bold">ADD MEMBER</h3>
