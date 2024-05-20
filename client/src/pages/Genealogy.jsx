@@ -2,11 +2,13 @@ import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import dTree from "d3-dtree";
 import Button from "../components/Button";
+import { getApi } from "../services/dataApi";
 
 // import _ from 'lodash';
 // import * as d3 from "d3";
 
 const Genealogy = () => {
+  const data = getApi()
   useEffect(()=>{
     let treeData = [{
       name: "Father",

@@ -1,4 +1,7 @@
-export const getApi = async (url, token) => {
+import { getToken } from "../utils/authToken";
+
+export const getApi = async (url) => {
+  const token = getToken()
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -7,12 +10,13 @@ export const getApi = async (url, token) => {
     },
   });
   const apiData = await response.json();
-  console.log(apiData)
+  console.log(apiData,token)
 
-  return apiData;
+  return {response,apiData};
 };
 
-export const postApi = async (url, token, data) => {
+export const postApi = async (url,data) => {
+  const token = getToken()
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -22,7 +26,7 @@ export const postApi = async (url, token, data) => {
     body: JSON.stringify(data),
   });
   const apiData = await response.json();
-  console.log(apiData)
-
-  return apiData;
+  console.log(apiData,token)
+  
+  return {response,apiData};
 };

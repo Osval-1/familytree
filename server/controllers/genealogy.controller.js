@@ -15,13 +15,15 @@ const getFamilyTree = async (req, res) => {
 };
 const AddFamilyMember = async (req, res) => {
   try {
-    const { name, email, phoneNumber, dateOfBirth, placeOfResidence } =
+    const { name, email, phone, dateOfBirth, placeOfResidence } =
       req.body;
+    if (!email | !name|!placeOfResidence|!dateOfBirth|!phone) {
+      return res.status(400).json({message:"please fill in all fields"})
+    }
     const newMember = new Member({
       name: name,
       email: email,
-      password: hashedPassword,
-      phoneNumber: phoneNumber,
+      phoneNumber: phone,
       dateOfBirth: dateOfBirth,
       placeOfResidence: placeOfResidence,
     });

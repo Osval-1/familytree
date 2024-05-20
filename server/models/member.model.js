@@ -10,14 +10,16 @@ const memberSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
   dateOfBirth: { type: String, required: true },
   placeOfResidence: {
     type: String,
     required: true,
+  },
+  mother: {
+    type: String,
+  },
+  father: {
+    type: String,
   },
   phoneNumber: {
     type: Number,
