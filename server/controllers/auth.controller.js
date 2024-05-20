@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Member = require("../models/member.model.js");
+const User = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
 
@@ -9,26 +9,20 @@ const signup = async (req, res) => {
     const {
       name,
       email,
-      dateOfBirth,
-      placeOfResidence,
-      phoneNumber,
       password,
     } = req.body;
-    const existingMember = await Member.findOne({ email });
-    if (existingMember) {
-      return res.status(400).send("Family Member already exists");
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(401).send(" User already exists");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newMember = new Member({
+    const newUser = new User({
       name: name,
       email: email,
       password: hashedPassword,
-      phoneNumber: phoneNumber,
-      dateOfBirth: dateOfBirth,
-      placeOfResidence: placeOfResidence,
     });
-    await newMember.save();
-    res.status(201).send(`Family Member registered successfully,${newMember}`);
+    await newUser.save();
+    res.status(201).send(`User registered successfully,${newUser}`);
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
@@ -38,19 +32,16 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const isMember = await Member.findOne({ email });
-    if (!isMember) {
-      return res.status(400).send("Member doesn't exist");
+    const isUser = await User.findOne({ email });
+    if (!isUser) {
+      return res.status(401).send("User doesn't exist");
     }
-    const comparePasswords = await bcrypt.compare(
-      password,
-      isMember.password
-    );
+    const comparePasswords = await bcrypt.compare(password, isUser.password);
     if (!comparePasswords) {
       return res.status(200).send("Incorrect password");
     }
-    const token = jsonwebtoken.sign(isMember.id, process.env.SECRETKEY);
-    res.status(200).json({ ...isMember._doc, jwttoken: token });
+    const token = jsonwebtoken.sign(isUser.id, process.env.SECRETKEY);
+    res.status(200).json({ ...isUser._doc, jwttoken: token });
   } catch (error) {
     console.log(error);
     res.status(400).send("error logging in");
