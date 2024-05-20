@@ -8,11 +8,10 @@ const Signup = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("Does this work")
-  const [errorType, setErrorType] = useState("rror")
-  const [error, setError] = useState(true)
+  const [message, setMessage] = useState("Does this work");
+  const [error, setError] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleNamesChange = (e) => {
     setUserName(e.target.value);
@@ -23,23 +22,32 @@ const Signup = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-  const Signup = async() => {
-    if(!userName|!email|password){
-      return console.log("please fill out all fields in the form")
+  const Signup = async () => {
+    if (!userName | !email | !password) {
+      setError(true);
+      setMessage("please fill out all fields in the form")
+      return console.log("please fill out all fields in the form");
     }
-    const {response,userData }= await signupApi("http://localhost:8000/auth/signup", {
-      name: userName,
-      email: email,
-      password: password,
-    });
-    console.log(response,userData)
+    const { response, userData } = await signupApi(
+      "http://localhost:8000/auth/signup",
+      {
+        name: userName,
+        email: email,
+        password: password,
+      }
+    );
+    if (!response.ok) {
+      setError(true);
+      setMessage("error occured");
+      return;
+    }
+    navigate("/login");
+    console.log(response, userData);
   };
-
-
 
   return (
     <div className="w-full h-screen absolute flex flex-col justify-center items-center py-8 sm:py-4 overflow-hidden">
-     {error && <ErrorMessage message={message} type={errorType}/>}
+      {error && <ErrorMessage message={message} />}
       <div className="border border-black w-3/4 sm:w-2/3 md:w-2/5 lg:w-1/3 flex flex-col rounded-lg px-4 py-3 gap-1 ">
         <h3 className="text-center text-3xl font-bold">SIGNUP</h3>
         <label htmlFor="name" className="flex flex-col gap-1 font-medium">
@@ -78,11 +86,7 @@ const Signup = () => {
           />
         </label>
         <div className="flex flex-row justify-center mt-2">
-          <Button
-            label={"SIGNUP"}
-            outline={"black"}
-            onclick={Signup}
-          />
+          <Button label={"SIGNUP"} outline={"black"} onclick={Signup} />
         </div>
       </div>
     </div>

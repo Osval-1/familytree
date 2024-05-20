@@ -1,5 +1,3 @@
-import { setToken } from "../utils/authToken";
-
 export const signupApi = async (url, data) => {
   const response = await fetch(url, {
     method: "POST",
@@ -20,7 +18,7 @@ export const loginApi = async (url, data) => {
     body: JSON.stringify(data),
   });
   const userData = await response.json();
-  console.log(userData)  
-  setToken(userData.token);
-  return userData;
+  const {jwttoken} = userData
+  localStorage.setItem("token",jwttoken)
+  return {response,userData};
 };

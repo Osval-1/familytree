@@ -1,8 +1,12 @@
 import React from "react";
 import Button from "../components/Button";
 import familytreeImage from "../assets/familytreeImage.jpg";
+import { useNavigate } from "react-router-dom";
+
 
 const Homepage = () => {
+  const navigate = useNavigate();
+
   return (
     <div
       style={{
@@ -19,8 +23,8 @@ const Homepage = () => {
         <div className="flex flex-row justify-center md:justify-between mb-32 md:mb-24">
           <p>logo here</p>
           <div className="hidden md:flex flex-row gap-4">
-            <Button label={"Signup"} />
-            <Button label={"Login"} />
+            <Button label={"Signup"} onclick={()=>navigate("/Signup")} />
+            <Button label={"Login"} onclick={()=>navigate("/Login")}/>
           </div>
         </div>
         <div className="flex flex-col items-center text-center ">
@@ -32,7 +36,7 @@ const Homepage = () => {
             we encrypt your data to ensure privacy as we ourselves can't read
             your data
           </p>
-          <Button label={"Get Started"}/>
+          <Button label={"Get Started"} onclick={()=>navigate("/Login")}/>
         </div>
       </div>
     </div>
