@@ -22,6 +22,8 @@ const AddParents = () => {
    return ()=>clearTimeout(timeout)
   },[message,error])
 
+  const navigate = useNavigate();
+
   const handleFatherChange = (e) => {
     setFather(e.target.value);
   };
@@ -49,6 +51,7 @@ const AddParents = () => {
       console.log(response, apiData);
       return;
     }
+    navigate("/Genealogy")
   };
   return (
     <div className="w-screen h-screen flex flex-col border items-center justify-center py-12 sm:py-8 overflow-hidden">

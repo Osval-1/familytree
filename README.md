@@ -26,7 +26,9 @@ An App meant to record and safely store genealogy data
 
 ## Notice !!!
 
-when adding parents,the names should match Exactly those shown on the members table
+To Add parents,
+* click on the row with the child,
+* the names should match Exactly those shown on the members table
 
 ## Technologies Used
 

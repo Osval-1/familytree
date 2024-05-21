@@ -4,11 +4,13 @@ import { getToken } from "../utils/authToken";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(getToken());
-  useEffect(()=>{
-  setToken(getToken())
-  console.log(token)
-  },[token])
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  
+
+  useEffect(() => {
+    setToken(getToken());
+    console.log(token);
+  }, [token]);
   return (
     <AuthContext.Provider value={{ token }}>{children}</AuthContext.Provider>
   );

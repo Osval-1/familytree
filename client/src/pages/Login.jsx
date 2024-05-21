@@ -45,7 +45,7 @@ const Login = () => {
       setMessage(userData.message);
       return;
     }
-      navigate("/MembersTable")
+    navigate("/MembersTable")
     console.log(response, userData);
   };
   return (

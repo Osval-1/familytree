@@ -18,7 +18,8 @@ export const loginApi = async (url, data) => {
     body: JSON.stringify(data),
   });
   const userData = await response.json();
-  const {jwttoken} = userData
+
+  const jwttoken = userData.jwttoken
   if(jwttoken){
     localStorage.setItem("token",jwttoken)
   }
