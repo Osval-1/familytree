@@ -16,7 +16,6 @@ const AddMember = () => {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    logout()
     const timeout = setTimeout(
      ()=>{
        setError(false)

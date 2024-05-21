@@ -4,7 +4,7 @@ import { getToken } from "../utils/authToken";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(getToken());
   useEffect(()=>{
   setToken(getToken())
   console.log(token)

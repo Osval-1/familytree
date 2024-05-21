@@ -3,7 +3,6 @@ import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
 import { loginApi } from "../services/authenticationApi";
 import { useNavigate,Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -46,7 +45,7 @@ const Login = () => {
       setMessage(userData.message);
       return;
     }
-    navigate("/MembersTable")
+      navigate("/MembersTable")
     console.log(response, userData);
   };
   return (
