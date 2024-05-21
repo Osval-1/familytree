@@ -1,48 +1,79 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, { useState, useEffect, useContext } from "react";
 import dTree from "d3-dtree";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { getApi } from "../services/dataApi";
-import _ from 'lodash';
+import _ from "lodash";
 import * as d3 from "d3";
 
-
-
 const Genealogy = () => {
-  // const data = getApi("http://localhost:8000/genealogy/family-tree")
-  // console.log(data)
-  
-  const navigate = useNavigate()
+  const [genealogyData, setGenealogyData] = useState("");
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    let treeData = [{
-      name: "Father",
-      depthOffset: 1,
-      marriages: [{
-        spouse: {
-          name: "Mother",
+  const parseGenealogyData = () => {
+    //dtree-seed only accepts id that are numbers so we convert ids to numbers
+    const convertId = (id) => {
+      if(!id){
+        return null
+      }
+      const converted = id.split("").slice(id.length-2,id.length).join("")
+        return parseInt(converted)
+    }
+    // parse data to fit dtree-seeds template
+    const parsedGenealogy = genealogyData.map((item) => {
+      return {
+        id: convertId(item._id),
+        name: item.name,
+        email: item.email,
+        phone: item.phoneNumber,
+        placeOfResidence: item.placeOfResidence,
+        dateOfBirth: item.dateOfBirth,
+        parent1Id: convertId(item.father),
+        parent2Id: convertId(item.mother)
+      };
+    });
+    return parsedGenealogy;
+  };
+
+  const data = {};
+  useEffect(() => {
+    const getData = async () => {
+      const { response, apiData } = await getApi(
+        "http://localhost:8000/genealogy/family-tree"
+      );
+      setGenealogyData(apiData);
+      // console.log(apiData)
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (!genealogyData) {
+      return;
+    }
+    const parsedData = parseGenealogyData();
+    const targetId = parsedData[0].id;
+    const seededData = dSeeder.seed(parsedData,targetId);
+
+    console.log(seededData);
+    dTree.init(seededData, {
+      target: "#graph",
+      height: 800,
+      width: 1200,
+      debug: false,
+      callbacks: {
+        nodeClick: (id) => {
+          console.log(id);
         },
-        children: [{
-          name: "Child",
-        },{name:"child2"}]
-      }],
-      extra: {}
-    }];
+      },
+    });
+  }, [genealogyData]);
 
-    dTree.init(treeData, {target: "#graph", height:800, width: 1200, debug:false,callbacks:{
-      nodeClick:(id)=>{
-        console.log(id)
-        navigate(`/AddParents/${id}`)}
-    }});
-  },[])
-
-
-
-  return<div className="w-screen h-screen absolute">
-  <div id="graph">
-  </div>
-  </div> 
+  return (
+    <div className="w-screen h-screen absolute">
+      <div id="graph"></div>
+    </div>
+  );
 };
 
 export default Genealogy;

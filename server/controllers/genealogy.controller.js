@@ -4,10 +4,12 @@ const mongoose = require("mongoose");
 const getFamilyTree = async (req, res) => {
   try {
     const familyTree = await Member.find({});
+
     if (!familyTree[0]) {
       return res.status(400).send("Member doesn't exist,Create some");
     }
     res.status(200).send(familyTree);
+    
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
@@ -35,20 +37,19 @@ const AddFamilyMember = async (req, res) => {
 };
 const AddParents = async (req, res) => {
   try {
-    console.log(req.body)
     const { childId, father, mother } = req.body;
     if (!childId | !father | !mother) {
       return res.status(400).json({ message: "please fill in all fields" });
     }
     const findFather = await Member.findOne({ name: father });
-    if (!father) {
-      console.log(findFather)
-      return res.status(400).json({ message: "input a valid father" });
+    if (!findFather) {
+      return res.status(400).json({ message: "input a valid father Name" });
     }
+    console.log(findFather)
     const findMother = await Member.findOne({ name: mother });
-    if (!mother) {
+    if (!findMother) {
       console.log(findMother)
-      return res.status(400).json({ message: "input a valid mother" });
+      return res.status(400).json({ message: "input a valid mother Name" });
     }
     const findChild = await Member.findById(childId);
 

@@ -23,7 +23,7 @@ const AddParents = () => {
     if (!father | !mother) {
       return console.log("please fill out all fields in the form");
     }
-    const { response, userData } = await postApi(
+    const { response, apiData } = await postApi(
       "http://localhost:8000/genealogy/add-parents",
 
       {
@@ -32,8 +32,12 @@ const AddParents = () => {
         mother: mother,
       }
     );
-
-    console.log(response, userData);
+    if (!response.ok) {
+      setError(true);
+      setMessage(apiData.message);
+      return;
+    }
+    console.log(response, apiData);
   };
   return (
     <div className="w-screen h-screen flex flex-col border items-center justify-center py-12 sm:py-8 overflow-hidden">

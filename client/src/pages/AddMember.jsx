@@ -4,17 +4,16 @@ import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 import { postApi } from "../services/dataApi";
 
-
 const AddMember = () => {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [placeOfResidence, setPlaceOfResidence] = useState("");
-  const [phone, setPhone] = useState("")
+  const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -38,7 +37,7 @@ const AddMember = () => {
   };
 
   const addMemberApi = async () => {
-    if (!email | !userName|!placeOfResidence|!dateOfBirth|!phone) {
+    if (!email | !userName | !placeOfResidence | !dateOfBirth | !phone) {
       setError(true);
       setMessage("please fill out all fields in the form");
     }
@@ -57,7 +56,7 @@ const AddMember = () => {
       setMessage("error occured");
       return;
     }
-     navigate("/MembersTable")
+    navigate("/MembersTable");
     console.log(response, userData);
   };
 

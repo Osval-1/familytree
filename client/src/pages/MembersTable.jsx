@@ -37,7 +37,7 @@ const MembersTable = () => {
               phone={members.phoneNumber}
               dateOfBirth={members.dateOfBirth}
               placeOfResidence={members.placeOfResidence}
-              onclick={()=>navigate(`/AddParents/${members._id}`)}
+              onclick={() => navigate(`/AddParents/${members._id}`)}
             />
           ))}
         </>
