@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import {
   Homepage,
@@ -7,39 +7,39 @@ import {
   AddMember,
   Genealogy,
   AddParents,
-  MembersTable
+  MembersTable,
+  PageNotFound,
 } from "./pages";
 import { AuthContext } from "./context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/Homepage");
+    } else {
+      navigate("/MembersTable");
+    }
+  }, [token]);
   return (
     <>
       <Routes>
         {!token ? (
           <>
-            <Route
-              path="/"
-              element={<Navigate to="/Homepage" replace={true} />}
-            />
             <Route path="/Homepage" element={<Homepage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
           </>
         ) : (
           <>
-          <Route
-            path="/"
-            element={<Navigate to="/Genealogy" replace={true} />}
-          />
             <Route path="/Genealogy" element={<Genealogy />} />
             <Route path="/AddMember" element={<AddMember />} />
             <Route path="/MembersTable" element={<MembersTable />} />
             <Route path="/AddParents/:id" element={<AddParents />} />
-            <Route path="/Homepage" element={<Homepage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/Signup" element={<Signup />} />
           </>
         )}
       </Routes>

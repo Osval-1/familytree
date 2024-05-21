@@ -8,18 +8,27 @@ import { logout } from "../utils/authToken";
 const MembersTable = () => {
   const [membersData, setMembersData] = useState(null);
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const getData = async () => {
       const { response, apiData } = await getApi(
         "http://localhost:8000/genealogy/family-tree"
       );
-      setMembersData(apiData);
+      if (!response.ok) {
+        setError(true);
+        return;
+      }
       console.log(apiData);
+      setMembersData(apiData);
     };
     getData();
   }, []);
-
+  const logoutUser = () => {
+    logout();
+    navigate("/Login");
+  };
   return (
     <div className="mx-8 mt-6">
       <div className="grid grid-cols-5 pb-2 overflow-hidden">
@@ -46,8 +55,18 @@ const MembersTable = () => {
       ) : (
         <p>No Members data Available</p>
       )}
-      <div className="mt-4 flex justify-center">
-      <Button label={"logout"} outline="black" onclick={logout}/>
+      <div className="mt-4 flex justify-between">
+        <Button label={"Logout"} outline="black" onclick={logoutUser} />
+        <Button
+          label={"Geanealogy"}
+          outline="black"
+          onclick={() => navigate("/Genealogy")}
+        />
+        <Button
+          label={"AddMember"}
+          outline="black"
+          onclick={() => navigate("/AddMember")}
+        />
       </div>
     </div>
   );

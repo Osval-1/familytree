@@ -21,6 +21,6 @@ module.exports = async (req, res,next) => {
     next()
   } catch (error) {
     console.log(error);
-    res.status(400).send({error:error,Message:"User is not loggedIn"});
+    res.status(400).send({error:error,Message:"User is not logged In"});
   }
 };

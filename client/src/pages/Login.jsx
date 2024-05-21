@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
 import { loginApi } from "../services/authenticationApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
@@ -43,9 +43,10 @@ const Login = () => {
     );
     if (!response.ok) {
       setError(true);
-      setMessage("error occured");
+      setMessage(userData.message);
       return;
     }
+    navigate("/MembersTable")
     console.log(response, userData);
   };
   return (

@@ -5,6 +5,7 @@ import AddMember from "./AddMember"
 import Genealogy from "./Genealogy"
 import AddParents from "./AddParents";
 import MembersTable from "./MembersTable";
+import PageNotFound from "./PageNotFound";
 
 
-export {Homepage,Login,Signup,AddMember,Genealogy,AddParents,MembersTable}
+export {Homepage,Login,Signup,AddMember,Genealogy,AddParents,MembersTable,PageNotFound}

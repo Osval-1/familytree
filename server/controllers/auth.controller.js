@@ -5,18 +5,17 @@ const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   try {
-    console.log(req.body);
     const {
       name,
       email,
       password,
     } = req.body;
-    if(!name|!email|password){
-      return res.status(400).json(" please provide all the information");
+    if(!name|!email|!password){
+      return res.status(400).json({message:" please provide all information"});
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json(" User already exists");
+      return res.status(400).json({message:" email already exists"});
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
@@ -28,26 +27,29 @@ const signup = async (req, res) => {
     res.status(201).json({message:`User registered successfully,${newUser}`});
   } catch (error) {
     console.log(error);
-    res.status(400).json(error);
+    res.status(400).json({message:"error logging in"});;
   }
 };
 
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if(!email|!password){
+      return res.status(400).json({message:" please provide all information"});
+    }
     const isUser = await User.findOne({ email });
     if (!isUser) {
-      return res.status(400).send("User doesn't exist");
+      return res.status(400).json({message:" email doesn't exists"});
     }
     const comparePasswords = await bcrypt.compare(password, isUser.password);
     if (!comparePasswords) {
-      return res.status(200).send("Incorrect password");
+      return res.status(200).json({message:"Incorrect password"});
     }
     const token = jwt.sign(isUser.id, process.env.SECRETKEY);
     res.status(200).json({ ...isUser._doc, jwttoken: token });
   } catch (error) {
     console.log(error);
-    res.status(400).send("error logging in");
+    res.status(400).json({message:"error logging in"});
   }
 };
 

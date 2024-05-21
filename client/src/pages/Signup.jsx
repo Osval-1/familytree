@@ -47,7 +47,7 @@ const Signup = () => {
     );
     if (!response.ok) {
       setError(true);
-      setMessage("error occured");
+      setMessage(userData.message);
       return;
     }
     navigate("/login");
