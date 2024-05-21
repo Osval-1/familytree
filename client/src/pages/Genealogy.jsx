@@ -42,7 +42,6 @@ const Genealogy = () => {
         "http://localhost:8000/genealogy/family-tree"
       );
       setGenealogyData(apiData);
-      // console.log(apiData)
     };
     getData();
   }, []);
@@ -55,7 +54,6 @@ const Genealogy = () => {
     const targetId = parsedData[0].id;
     const seededData = dSeeder.seed(parsedData,targetId);
 
-    console.log(seededData);
     dTree.init(seededData, {
       target: "#graph",
       height: 800,

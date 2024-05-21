@@ -9,9 +9,18 @@ const AddParents = () => {
   const [father, setFather] = useState("");
   const [mother, setMother] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
 
   const {id} = useParams()
+
+  useEffect(()=>{
+   const timeout = setTimeout(
+    ()=>{
+      setError(false)
+    },3000
+   )
+   return ()=>clearTimeout(timeout)
+  },[message,error])
 
   const handleFatherChange = (e) => {
     setFather(e.target.value);
@@ -21,6 +30,8 @@ const AddParents = () => {
   };
   const addParentsApi = async () => {
     if (!father | !mother) {
+      setError(true);
+      setMessage("please fill out all fields in the form");
       return console.log("please fill out all fields in the form");
     }
     const { response, apiData } = await postApi(
@@ -35,9 +46,9 @@ const AddParents = () => {
     if (!response.ok) {
       setError(true);
       setMessage(apiData.message);
+      console.log(response, apiData);
       return;
     }
-    console.log(response, apiData);
   };
   return (
     <div className="w-screen h-screen flex flex-col border items-center justify-center py-12 sm:py-8 overflow-hidden">

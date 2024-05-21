@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import Row from "../components/Row";
 import { getApi } from "../services/dataApi";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+import { logout } from "../utils/authToken";
 
 const MembersTable = () => {
   const [membersData, setMembersData] = useState(null);
@@ -44,6 +46,9 @@ const MembersTable = () => {
       ) : (
         <p>No Members data Available</p>
       )}
+      <div className="mt-4 flex justify-center">
+      <Button label={"logout"} outline="black" onclick={logout}/>
+      </div>
     </div>
   );
 };

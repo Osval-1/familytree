@@ -13,13 +13,20 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    const timeout = setTimeout(
+     ()=>{
+       setError(false)
+     },3000
+    )
+    return ()=>clearTimeout(timeout)
+   },[message,error])
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value);
   };
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value);
   };
   const Login = async () => {
     if (!email | !password) {

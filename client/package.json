@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.5.3",
     "d3": "^4.13.0",
     "d3-dtree": "^2.4.1",
     "dtree-seed": "^1.0.0",

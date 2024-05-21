@@ -12,6 +12,15 @@ const Signup = () => {
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
+  
+  useEffect(()=>{
+    const timeout = setTimeout(
+     ()=>{
+       setError(false)
+     },3000
+    )
+    return ()=>clearTimeout(timeout)
+   },[message,error])
 
   const handleNamesChange = (e) => {
     setUserName(e.target.value);

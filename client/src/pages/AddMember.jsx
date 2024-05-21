@@ -15,31 +15,36 @@ const AddMember = () => {
 
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    const timeout = setTimeout(
+     ()=>{
+       setError(false)
+     },3000
+    )
+    return ()=>clearTimeout(timeout)
+   },[message,error])
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value);
   };
   const handleDateOfBirthChange = (e) => {
     setDateOfBirth(e.target.value);
-    console.log(e.target.value);
   };
   const handlePlaceOfResidenceChange = (e) => {
     setPlaceOfResidence(e.target.value);
-    console.log(e.target.value);
   };
   const handlePhoneChange = (e) => {
     setPhone(e.target.value);
-    console.log(e.target.value);
   };
   const handleNameChange = (e) => {
     setUserName(e.target.value);
-    console.log(e.target.value);
   };
 
   const addMemberApi = async () => {
     if (!email | !userName | !placeOfResidence | !dateOfBirth | !phone) {
       setError(true);
       setMessage("please fill out all fields in the form");
+     return
     }
     const { response, userData } = await postApi(
       "http://localhost:8000/genealogy/add-member",
@@ -53,7 +58,7 @@ const AddMember = () => {
     );
     if (!response.ok) {
       setError(true);
-      setMessage("error occured");
+      setMessage(userData.message);
       return;
     }
     navigate("/MembersTable");
