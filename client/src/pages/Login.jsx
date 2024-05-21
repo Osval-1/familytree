@@ -46,7 +46,6 @@ const Login = () => {
       return;
     }
     navigate("/MembersTable")
-    console.log(response, userData);
   };
   return (
     <div className="w-screen h-screen flex flex-col border items-center justify-center py-12 sm:py-8 overflow-hidden">

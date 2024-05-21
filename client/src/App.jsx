@@ -14,9 +14,9 @@ import { AuthContext } from "./context/AuthContext";
 function App() {
   
   const { token } = useContext(AuthContext);
-  
+
   function RequireAuth({ children, redirectTo }) {
-    return token? children : <Navigate to={redirectTo} />;
+    return token? children : <Navigate to={redirectTo} replace={true}/>;
   }
 
   return (<>

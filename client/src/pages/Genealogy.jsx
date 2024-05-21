@@ -11,15 +11,16 @@ const Genealogy = () => {
   const navigate = useNavigate();
 
   const parseGenealogyData = () => {
-    //dtree-seed only accepts id that are numbers so we convert ids to numbers
+    //dtree-seed only accepts id that are numbers so we convert remove all non-numeric
+    // and convert ids to numbers
     const convertId = (id) => {
-      if(!id){
-        return null
+      if (!id) {
+        return null;
       }
-      const converted = id.split("").slice(id.length-2,id.length).join("")
-        return parseInt(converted)
-    }
-    // parse data to fit dtree-seeds template
+      const converted = id.replace(/\D/g, ""); 
+      return parseInt(converted);
+    };
+    // parse data to fit dtree-seed's template
     const parsedGenealogy = genealogyData.map((item) => {
       return {
         id: convertId(item._id),
@@ -29,7 +30,7 @@ const Genealogy = () => {
         placeOfResidence: item.placeOfResidence,
         dateOfBirth: item.dateOfBirth,
         parent1Id: convertId(item.father),
-        parent2Id: convertId(item.mother)
+        parent2Id: convertId(item.mother),
       };
     });
     return parsedGenealogy;
@@ -52,7 +53,7 @@ const Genealogy = () => {
     }
     const parsedData = parseGenealogyData();
     const targetId = parsedData[0].id;
-    const seededData = dSeeder.seed(parsedData,targetId);
+    const seededData = dSeeder.seed(parsedData, targetId);
 
     dTree.init(seededData, {
       target: "#graph",

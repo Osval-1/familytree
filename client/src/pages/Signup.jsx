@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
-import { signupApi, loginApi } from "../services/authenticationApi";
+import { signupApi } from "../services/authenticationApi";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -51,7 +51,6 @@ const Signup = () => {
       return;
     }
     navigate("/login");
-    console.log(response, userData);
   };
 
   return (

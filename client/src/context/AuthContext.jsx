@@ -9,7 +9,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     setToken(getToken());
-    console.log(token);
   }, [token]);
   return (
     <AuthContext.Provider value={{ token }}>{children}</AuthContext.Provider>

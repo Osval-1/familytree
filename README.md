@@ -15,7 +15,7 @@ An App meant to record and safely store genealogy data
  npm run server
 ```
 
-## To run the server
+## To run the client
 
 ```
 
@@ -28,7 +28,7 @@ An App meant to record and safely store genealogy data
 
 To Add parents,
 * click on the row with the child,
-* the names should match Exactly those shown on the members table
+* the parent names should match Exactly those shown on the members table
 
 ## Technologies Used
 
