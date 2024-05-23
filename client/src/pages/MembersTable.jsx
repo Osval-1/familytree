@@ -4,12 +4,17 @@ import { getApi } from "../services/dataApi";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { logout } from "../utils/authToken";
+import { AuthContext } from "../context/AuthContext";
+
 
 const MembersTable = () => {
   const [membersData, setMembersData] = useState(null);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+  const {token,setToken} = useContext(AuthContext)
+
 
   useEffect(() => {
     const getData = async () => {
@@ -26,6 +31,7 @@ const MembersTable = () => {
     getData();
   }, []);
   const logoutUser = () => {
+    setToken(null)
     logout();
     navigate("/Login");
   };

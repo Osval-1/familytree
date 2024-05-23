@@ -36,7 +36,7 @@ const Homepage = () => {
             we encrypt your data to ensure privacy as we ourselves can't read
             your data
           </p>
-          <Button label={"Get Started"} onclick={()=>navigate("/Login")}/>
+          <Button label={"Get Started"} onclick={()=>navigate("/MembersTable")}/>
         </div>
       </div>
     </div>

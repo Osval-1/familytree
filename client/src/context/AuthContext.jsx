@@ -5,13 +5,13 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
-  
 
+  
   useEffect(() => {
     setToken(getToken());
-  }, [token]);
+  }, [token] );
   return (
-    <AuthContext.Provider value={{ token }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{token,setToken}}>{children}</AuthContext.Provider>
   );
 };
 

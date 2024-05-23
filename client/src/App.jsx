@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import {
   Homepage,
   Login,
@@ -12,52 +12,52 @@ import {
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  
-  const { token } = useContext(AuthContext);
+  const {token,setToken} = useContext(AuthContext);
 
   function RequireAuth({ children, redirectTo }) {
-    return token? children : <Navigate to={redirectTo} replace={true}/>;
+    return token ? children : <Navigate to={redirectTo} replace={true} />;
   }
 
-  return (<>
+  return (
+    <>
       <Routes>
-      <Route path="/" element={<Homepage />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Signup" element={<Signup />} />
-      <Route
-        path="/MembersTable"
-        element={
-          <RequireAuth redirectTo="/Login">
-               <MembersTable />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/Genealogy"
-        element={
-          <RequireAuth redirectTo="/Login">
-               <Genealogy />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/AddMember"
-        element={
-          <RequireAuth redirectTo="/Login">
-               <AddMember />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/AddParents/:id"
-        element={
-          <RequireAuth redirectTo="/Login">
-               <AddParents />
-          </RequireAuth>
-        }
-      />
-    </Routes>
-  </>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Signup" element={<Signup />} />
+        <Route
+          path="/MembersTable"
+          element={
+            <RequireAuth redirectTo="/Login">
+              <MembersTable />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/Genealogy"
+          element={
+            <RequireAuth redirectTo="/Login">
+              <Genealogy />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/AddMember"
+          element={
+            <RequireAuth redirectTo="/Login">
+              <AddMember />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/AddParents/:id"
+          element={
+            <RequireAuth redirectTo="/Login">
+              <AddParents />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+    </>
   );
 }
 

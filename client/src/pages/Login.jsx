@@ -2,15 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
 import { loginApi } from "../services/authenticationApi";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("Does");
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const {token,setToken} = useContext(AuthContext)
 
   useEffect(()=>{
     const timeout = setTimeout(
@@ -45,6 +47,9 @@ const Login = () => {
       setMessage(userData.message);
       return;
     }
+    const jwttoken = userData.jwttoken
+    setToken(jwttoken)
+    localStorage.setItem("token",jwttoken)
     navigate("/MembersTable")
   };
   return (

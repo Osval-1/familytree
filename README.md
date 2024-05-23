@@ -1,6 +1,6 @@
 # A Genealogy Recording Application
 
-An App meant to record and safely store genealogy data
+An App Used to record, safely store genealogy data and visually display genealogy
 
 # How To Run
 
@@ -27,8 +27,9 @@ An App meant to record and safely store genealogy data
 ## Notice !!!
 
 To Add parents,
-* click on the row with the child,
-* the parent names should match Exactly those shown on the members table
+
+- click on the row of the child,
+- the parent names should match Exactly those shown on the members table
 
 ## Technologies Used
 
