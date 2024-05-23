@@ -21,6 +21,6 @@ module.exports = async (req, res,next) => {
     next()
   } catch (error) {
     console.log(error);
-    res.status(201).json({message:"Not Authenticated,Please Login"})
+    res.status(401).json({message:"Not Authenticated,Please Login"})
   }
 };
