@@ -6,15 +6,13 @@ import Button from "../components/Button";
 import { logout } from "../utils/authToken";
 import { AuthContext } from "../context/AuthContext";
 
-
 const MembersTable = () => {
   const [membersData, setMembersData] = useState(null);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const {token,setToken} = useContext(AuthContext)
-
+  const { token, setToken } = useContext(AuthContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -25,13 +23,13 @@ const MembersTable = () => {
         setError(true);
         return;
       }
-      console.log(apiData);
       setMembersData(apiData);
     };
     getData();
   }, []);
+
   const logoutUser = () => {
-    setToken(null)
+    setToken(null);
     logout();
     navigate("/Login");
   };
